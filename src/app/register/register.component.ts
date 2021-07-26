@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -9,17 +9,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup
+  error = false
+  success = false
 
   constructor(
     private fb: FormBuilder
   ) { 
     this.registerForm = this.fb.group(
       {
-        username: [],
-        email: [],
-        password: [],
-        confirmPassword: [],
-        rememberMe: []
+        username: ["",[Validators.required]],
+        email: ["",[Validators.required,Validators.email]],
+        password: ["",[Validators.required]],
+        confirmPassword: ["",[Validators.required]],
+        rememberMe: [""]
       }
     )
   }
@@ -28,16 +30,22 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void{
-    const username = this.registerForm.get("username")
-    if(username){
-      username.value
+    console.log(this.registerForm.get("username"))
+    console.log(this.registerForm.get("email"))
+    console.log(this.registerForm)
+    if(this.registerForm.get("username")!.value && this.registerForm.get("email")!.value && this.registerForm.get("password")!.value && this.registerForm.get("confirmPassword")!.value){
+      if(this.registerForm.get("password")!.value === this.registerForm.get("confirmPassword")!.value){
+        this.success = true
+        this.error = false  
+      }else{
+        this.success = false
+        this.error = true
+      }
+    }else{
+      this.error = true
+      this.success = false
     }
 
-    console.log(this.registerForm.get("username")!.value)
-    console.log(this.registerForm.get("email")!.value)
-    console.log(this.registerForm.get("email")!.value)
-    console.log(this.registerForm.get("email")!.value)
-    console.log(this.registerForm.get("email")!.value)
     
   }
 

@@ -20,6 +20,12 @@
                             formControlName="email">
                         <label for="floatingInput">Email address</label>
                     </div>
+                    <!-- <div *ngIf="registerForm.get('email')!.errors!.email" class="alert alert-danger" role="alert">
+                        This input must be an email
+                    </div>
+                    <div *ngIf="registerForm.get('email')!.errors!.required" class="alert alert-danger" role="alert">
+                        This input must have a value
+                    </div> -->
                     <div class="form-floating m-3">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
                             formControlName="password">
@@ -36,9 +42,16 @@
                             <input type="checkbox" value="remember-me" formControlName="rememberMe"> Remember me
                         </label>
                     </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+                    <button [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
                 </form>
             </main>
+            <br>
+            <div *ngIf="success" class="alert alert-success" role="alert">
+                A simple success alert—check it out!
+            </div>
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                A simple danger alert—check it out!
+            </div>
         </div>
     </div>
     <div class="row">

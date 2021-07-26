@@ -1,0 +1,26 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card text-center">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{currentUser!.username}}</li>
+                    <li class="list-group-item">{{currentUser!.password}}</li>
+                    <li class="list-group-item">{{currentUser!.age}}</li>
+                    <li class="list-group-item">{{currentUser!.name}}</li>
+                    <button class="btn btn-primary" (click)="edit()">Edit</button>
+                    <br>
+                    <form>
+                        <div class="form-floating m-3">
+                            <input [disabled]="!editable" [(ngModel)]="currentUser!.username" type="text" name="username" class="form-control"
+                                id="username" placeholder="Username">
+                            <label for="username">Username</label>
+                        </div>
+                        <button class="btn btn-primary" [disabled]="!editable" (click)="update()">Update</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

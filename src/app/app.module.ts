@@ -10,6 +10,9 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ApplicationsComponent } from './applications/applications.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +22,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    ContentComponent
+    ContentComponent,
+    ApplicationsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

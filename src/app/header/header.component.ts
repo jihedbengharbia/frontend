@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '../model/user.model';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -14,10 +17,32 @@ export class HeaderComponent implements OnInit {
   loginActive = false
   homeActive = false
   registerActive = false
+  currentUser?:User
+
   constructor(
+    private loginService: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    /* const user:User = JSON.parse(localStorage.getItem("user")!)
+    this.currentUser = user
+    if(!this.currentUser){
+      this.router.navigate(["login"])
+    } */
+    if(!this.loginService.currentUserObservable){
+      const user:User = JSON.parse(localStorage.getItem("user")!)
+      this.loginService.currentUserObservable =new Observable(
+        (observable)=>{
+            observable.next(user)
+        }
+    )
+    }
+    this.loginService.currentUserObservable!.subscribe(
+      (user)=>{
+        this.currentUser = user
+      }
+    )
     console.log("url: " + location.href)
     console.log("location: "  + location.href.includes("/login"))
     if(location.href.includes("/login")){
@@ -33,6 +58,11 @@ export class HeaderComponent implements OnInit {
       this.loginActive = false
       this.registerActive = false
     }
+  }
+
+  logout(): void{
+    localStorage.removeItem("user")
+    this.router.navigate(["login"])
   }
 
 }
